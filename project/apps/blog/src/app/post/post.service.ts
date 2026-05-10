@@ -12,12 +12,15 @@ import { PostRepository } from './post.repository';
 export class PostService {
   constructor(private readonly postRepository: PostRepository) {}
 
-  public async create(dto: CreatePostDto): Promise<PostEntity> {
+  public async create(
+    dto: CreatePostDto,
+    authorId: string,
+  ): Promise<PostEntity> {
     const isPostExisting = await this.checkIsPostExisting(dto);
     if (isPostExisting) {
       throw new PostExistsError(POST_EXISTS);
     }
-    const postEntity = new PostEntity(dto);
+    const postEntity = new PostEntity({ ...dto, authorId });
     return this.postRepository.save(postEntity);
   }
 

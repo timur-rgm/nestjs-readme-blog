@@ -5,6 +5,7 @@ export class PostEntity implements PostBase, Entity<string> {
   public id?: string;
   public type!: PostType;
   public tags?: string[];
+  public authorId!: string;
 
   public linkUrl?: string;
   public description?: string;
@@ -25,6 +26,7 @@ export class PostEntity implements PostBase, Entity<string> {
       id: this.id,
       type: this.type,
       tags: this.tags,
+      authorId: this.authorId,
     };
 
     switch (this.type) {
@@ -70,6 +72,7 @@ export class PostEntity implements PostBase, Entity<string> {
     this.id = post.id;
     this.type = post.type;
     this.tags = post.tags;
+    this.authorId = post.authorId;
 
     this.clearSpecificFields();
 

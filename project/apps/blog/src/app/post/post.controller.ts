@@ -51,7 +51,7 @@ export class PostController {
   @Post('/')
   public async create(@Body() dto: CreatePostDto) {
     try {
-      const post = await this.postService.create(dto);
+      const post = await this.postService.create(dto, 'test-author-id');
       return fillRdo(PostRdo, post.convertToObject());
     } catch (error) {
       this.mapPostErrorToHttp(error);
