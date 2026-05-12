@@ -1,6 +1,9 @@
 export type EntityIdType = string;
 
-export interface Entity<T extends EntityIdType> {
-  id?: T;
-  convertToObject(): Record<string, unknown>;
+export interface Entity<
+  Id extends EntityIdType,
+  Object = Record<string, unknown>,
+> {
+  id?: Id;
+  convertToObject(): Object;
 }
