@@ -29,9 +29,7 @@ export class PostRepository implements Repository<PostEntity> {
 
   public async findById(id: EntityIdType): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
     });
     if (!existingPostRow) {
       return null;
@@ -50,9 +48,7 @@ export class PostRepository implements Repository<PostEntity> {
   ): Promise<PostEntity> {
     const postData = entity.convertToObject();
     const updatedPostRow = await this.prismaClientService.post.update({
-      where: {
-        id,
-      },
+      where: { id },
       data: {
         ...postData,
         type: postTypeToPrismaPostType[postData.type],
@@ -63,17 +59,13 @@ export class PostRepository implements Repository<PostEntity> {
 
   public async deleteById(id: EntityIdType): Promise<void> {
     await this.prismaClientService.post.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
   }
 
   public async findByLinkUrl(linkUrl: string): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findFirst({
-      where: {
-        linkUrl,
-      },
+      where: { linkUrl },
     });
     if (!existingPostRow) {
       return null;
@@ -86,10 +78,7 @@ export class PostRepository implements Repository<PostEntity> {
     quoteAuthor: string,
   ): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findFirst({
-      where: {
-        quote,
-        quoteAuthor,
-      },
+      where: { quote, quoteAuthor },
     });
     if (!existingPostRow) {
       return null;
@@ -99,9 +88,7 @@ export class PostRepository implements Repository<PostEntity> {
 
   public async findByPhotoUrl(photoUrl: string): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findFirst({
-      where: {
-        photoUrl,
-      },
+      where: { photoUrl },
     });
     if (!existingPostRow) {
       return null;
@@ -114,10 +101,7 @@ export class PostRepository implements Repository<PostEntity> {
     text: string,
   ): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findFirst({
-      where: {
-        title,
-        text,
-      },
+      where: { title, text },
     });
     if (!existingPostRow) {
       return null;
@@ -127,9 +111,7 @@ export class PostRepository implements Repository<PostEntity> {
 
   public async findByVideoUrl(videoUrl: string): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findFirst({
-      where: {
-        videoUrl,
-      },
+      where: { videoUrl },
     });
     if (!existingPostRow) {
       return null;

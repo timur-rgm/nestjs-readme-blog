@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
 
-@Module({})
+import { CommentRepository } from './comment.repository';
+
+@Module({
+  providers: [CommentRepository],
+})
 export class CommentModule {}
