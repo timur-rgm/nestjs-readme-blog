@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { PrismaClientService } from '@project/models';
-import type { EntityIdType, Repository } from '@project/core';
+import type { Repository } from '@project/core';
 
 import { CommentEntity } from './comment.entity';
 
@@ -16,7 +16,7 @@ export class CommentRepository implements Repository<CommentEntity> {
     return new CommentEntity(createdRow);
   }
 
-  public async findById(id: EntityIdType): Promise<CommentEntity | null> {
+  public async findById(id: string): Promise<CommentEntity | null> {
     const existingRow = await this.prismaClientService.comment.findUnique({
       where: { id },
     });
@@ -28,8 +28,15 @@ export class CommentRepository implements Repository<CommentEntity> {
     return new CommentEntity(existingRow);
   }
 
+  public async findByPostId(postId: string): Promise<CommentEntity[]> {
+    const existingRows = await this.prismaClientService.comment.findMany({
+      where: { postId },
+    });
+    return existingRows.map((row) => new CommentEntity(row));
+  }
+
   public async update(
-    id: EntityIdType,
+    id: string,
     entity: CommentEntity,
   ): Promise<CommentEntity> {
     const updatedRow = await this.prismaClientService.comment.update({
@@ -39,7 +46,7 @@ export class CommentRepository implements Repository<CommentEntity> {
     return new CommentEntity(updatedRow);
   }
 
-  public async deleteById(id: EntityIdType): Promise<void> {
+  public async deleteById(id: string): Promise<void> {
     await this.prismaClientService.comment.delete({ where: { id } });
   }
 }
