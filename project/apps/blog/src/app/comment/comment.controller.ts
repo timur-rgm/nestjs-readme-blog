@@ -4,10 +4,13 @@ import {
   Delete,
   ForbiddenException,
   Get,
+  HttpCode,
+  HttpStatus,
   NotFoundException,
   Param,
   Post,
 } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { fillRdo } from '@project/helpers';
 
@@ -18,16 +21,31 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { PostNotFoundError } from '../post/errors';
 
 @Controller()
+@ApiTags('comments')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post('/comments')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The new comment has been successfully created.',
+    type: CommentRdo,
+  })
   public async create(@Body() dto: CreateCommentDto): Promise<CommentRdo> {
     const createdEntity = await this.commentService.create(dto, 'test-user-id');
     return fillRdo(CommentRdo, createdEntity.convertToObject());
   }
 
   @Get('/posts/:postId/comments')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Comment list',
+    type: [CommentRdo],
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Post not found.',
+  })
   public async getByPostId(
     @Param('postId') postId: string,
   ): Promise<CommentRdo[]> {
@@ -43,6 +61,19 @@ export class CommentController {
   }
 
   @Delete('/comments/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'The comment has been successfully deleted.',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Comment not found.',
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: 'Only the comment author can delete this comment.',
+  })
   public async deleteById(@Param('id') id: string): Promise<void> {
     try {
       await this.commentService.deleteById(id, 'test-user-id');

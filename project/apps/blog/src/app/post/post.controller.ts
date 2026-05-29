@@ -8,7 +8,12 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import {
+  ApiExtraModels,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 
 import { fillRdo } from '@project/helpers';
 
@@ -32,6 +37,7 @@ import { PostService } from './post.service';
   TextPostRdo,
   VideoPostRdo,
 )
+@ApiTags('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
