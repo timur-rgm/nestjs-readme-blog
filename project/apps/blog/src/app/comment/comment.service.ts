@@ -8,10 +8,14 @@ import {
 import { CommentNotFoundError, CommentOwnershipError } from './errors';
 import { CommentRepository } from './comment.repository';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { PostService } from '../post/post.service';
 
 @Injectable()
 export class CommentService {
-  constructor(private readonly commentRepository: CommentRepository) {}
+  constructor(
+    private readonly commentRepository: CommentRepository,
+    private readonly postService: PostService,
+  ) {}
 
   public async create(
     dto: CreateCommentDto,
@@ -22,6 +26,7 @@ export class CommentService {
   }
 
   public async getByPostId(postId: string): Promise<CommentEntity[]> {
+    await this.postService.getById(postId);
     return this.commentRepository.findByPostId(postId);
   }
 

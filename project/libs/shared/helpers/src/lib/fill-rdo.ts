@@ -1,23 +1,21 @@
 import { plainToInstance, type ClassTransformOptions } from 'class-transformer';
 
-type PlainObject = Record<string, unknown>;
-
-export function fillRdo<T, V extends PlainObject>(
-  DtoClass: new () => T,
-  plainObject: V,
+export function fillRdo<Rdo, PlainData extends object[]>(
+  rdoClass: new () => Rdo,
+  plainData: PlainData,
   options?: ClassTransformOptions,
-): T;
-export function fillRdo<T, V extends PlainObject[]>(
-  DtoClass: new () => T,
-  plainObject: V,
+): Rdo[];
+export function fillRdo<Rdo, PlainData extends object>(
+  rdoClass: new () => Rdo,
+  plainData: PlainData,
   options?: ClassTransformOptions,
-): T[];
-export function fillRdo<T, V extends PlainObject | PlainObject[]>(
-  DtoClass: new () => T,
-  plainObject: V,
+): Rdo;
+export function fillRdo<Rdo, PlainData extends object | object[]>(
+  rdoClass: new () => Rdo,
+  plainData: PlainData,
   options?: ClassTransformOptions,
-): T | T[] {
-  return plainToInstance(DtoClass, plainObject, {
+): Rdo | Rdo[] {
+  return plainToInstance(rdoClass, plainData, {
     excludeExtraneousValues: true,
     ...options,
   });
