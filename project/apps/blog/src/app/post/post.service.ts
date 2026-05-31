@@ -16,7 +16,7 @@ export class PostService {
     dto: CreatePostDto,
     authorId: string,
   ): Promise<PostEntity> {
-    const isPostExisting = await this.checkIsPostExisting(dto);
+    const isPostExisting = await this.checkIsDuplicate(dto);
     if (isPostExisting) {
       throw new PostExistsError(POST_EXISTS);
     }
@@ -36,7 +36,11 @@ export class PostService {
     return post;
   }
 
-  private async checkIsPostExisting(dto: CreatePostDto): Promise<boolean> {
+  public async ensureExists(id: string): Promise<void> {
+    await this.getById(id);
+  }
+
+  private async checkIsDuplicate(dto: CreatePostDto): Promise<boolean> {
     let post: PostEntity | null;
     switch (dto.type) {
       case PostType.Link:

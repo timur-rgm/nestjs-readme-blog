@@ -15,9 +15,9 @@ export class LikeRepository {
     return new LikeEntity(createdRow);
   }
 
-  public async findByUserIdAndPostId(
-    userId: string,
+  public async findByPostIdAndUserId(
     postId: string,
+    userId: string,
   ): Promise<LikeEntity | null> {
     const existingRow = await this.prismaClientService.like.findUnique({
       where: {
@@ -33,9 +33,9 @@ export class LikeRepository {
     return new LikeEntity(existingRow);
   }
 
-  public async deleteByUserIdAndPostId(
-    userId: string,
+  public async deleteByPostIdAndUserId(
     postId: string,
+    userId: string,
   ): Promise<void> {
     await this.prismaClientService.like.delete({
       where: {

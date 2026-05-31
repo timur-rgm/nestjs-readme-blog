@@ -26,7 +26,7 @@ export class CommentService {
   }
 
   public async getByPostId(postId: string): Promise<CommentEntity[]> {
-    await this.postService.getById(postId);
+    await this.postService.ensureExists(postId);
     return this.commentRepository.findByPostId(postId);
   }
 
@@ -44,3 +44,4 @@ export class CommentService {
     await this.commentRepository.deleteById(id);
   }
 }
+
