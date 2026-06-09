@@ -3,7 +3,7 @@ import { Post as PrismaPost, PostType as PrismaPostType } from '@prisma/client';
 
 import { PostType } from '@project/types';
 import { PrismaClientService } from '@project/models';
-import type { EntityIdType, Repository } from '@project/core';
+import type { EntityId, Repository } from '@project/core';
 
 import { PostEntity } from './post.entity';
 
@@ -27,7 +27,7 @@ export class PostRepository implements Repository<PostEntity> {
     return this.mapPostRowToPostEntity(createdPostRow);
   }
 
-  public async findById(id: EntityIdType): Promise<PostEntity | null> {
+  public async findById(id: EntityId): Promise<PostEntity | null> {
     const existingPostRow = await this.prismaClientService.post.findUnique({
       where: { id },
     });
@@ -43,7 +43,7 @@ export class PostRepository implements Repository<PostEntity> {
   }
 
   public async update(
-    id: EntityIdType,
+    id: EntityId,
     entity: PostEntity,
   ): Promise<PostEntity> {
     const postData = entity.convertToObject();
@@ -57,7 +57,7 @@ export class PostRepository implements Repository<PostEntity> {
     return this.mapPostRowToPostEntity(updatedPostRow);
   }
 
-  public async deleteById(id: EntityIdType): Promise<void> {
+  public async deleteById(id: EntityId): Promise<void> {
     await this.prismaClientService.post.delete({
       where: { id },
     });

@@ -10,6 +10,7 @@ export function fillRdo<Rdo, PlainData extends object>(
   plainData: PlainData,
   options?: ClassTransformOptions,
 ): Rdo;
+
 export function fillRdo<Rdo, PlainData extends object | object[]>(
   rdoClass: new () => Rdo,
   plainData: PlainData,
