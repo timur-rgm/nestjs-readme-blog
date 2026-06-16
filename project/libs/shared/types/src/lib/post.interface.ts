@@ -4,6 +4,7 @@ export interface PostBase {
   id?: string;
   type: PostType;
   tags?: string[];
+  authorId: string;
 }
 
 export interface LinkPost extends PostBase {

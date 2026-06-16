@@ -8,7 +8,12 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import {
+  ApiExtraModels,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 
 import { fillRdo } from '@project/helpers';
 
@@ -32,6 +37,7 @@ import { PostService } from './post.service';
   TextPostRdo,
   VideoPostRdo,
 )
+@ApiTags('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
@@ -51,7 +57,7 @@ export class PostController {
   @Post('/')
   public async create(@Body() dto: CreatePostDto) {
     try {
-      const post = await this.postService.create(dto);
+      const post = await this.postService.create(dto, 'test-author-id');
       return fillRdo(PostRdo, post.convertToObject());
     } catch (error) {
       this.mapPostErrorToHttp(error);

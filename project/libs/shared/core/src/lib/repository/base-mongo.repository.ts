@@ -1,11 +1,11 @@
 import { Document, Model } from 'mongoose';
 
 import { EntityNotFoundError } from './errors';
-import type { Entity, EntityIdType } from './entity.interface';
+import type { Entity, EntityId } from './entity.interface';
 import type { Repository } from './repository.interface';
 
 export abstract class BaseMongoRepository<
-  EntityType extends Entity<EntityIdType>,
+  EntityType extends Entity<EntityId>,
   DocumentType extends Document,
 > implements Repository<EntityType>
 {
