@@ -5,7 +5,7 @@ import type { Entity } from '@project/core';
 
 import { SALT_ROUNDS } from './authentication.constant';
 
-export class UserEntity implements AuthUser, Entity<string> {
+export class UserEntity implements AuthUser, Entity<string, AuthUser> {
   public id?: string;
   public email!: string;
   public name!: string;
@@ -16,7 +16,7 @@ export class UserEntity implements AuthUser, Entity<string> {
     this.fillFromObject(user);
   }
 
-  public convertToObject() {
+  public convertToObject(): AuthUser {
     return {
       id: this.id,
       email: this.email,
