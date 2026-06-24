@@ -29,11 +29,11 @@ import { UserRdo } from './rdo/user.rdo';
 export class AuthenticationController {
   constructor(private readonly authorizationService: AuthenticationService) {}
 
+  @Post('register')
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.',
   })
-  @Post('register')
   public async register(@Body() dto: CreateUserDto) {
     try {
       const user = await this.authorizationService.register(dto);
@@ -43,6 +43,7 @@ export class AuthenticationController {
     }
   }
 
+  @Post('login')
   @ApiResponse({
     type: LoggedUserRdo,
     status: HttpStatus.OK,
@@ -52,7 +53,6 @@ export class AuthenticationController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Password or Login is wrong.',
   })
-  @Post('login')
   public async login(@Body() dto: LoginUserDto) {
     try {
       const user = await this.authorizationService.verify(dto);

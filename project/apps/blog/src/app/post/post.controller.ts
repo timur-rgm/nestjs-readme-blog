@@ -18,6 +18,7 @@ import {
 import { fillRdo } from '@project/helpers';
 
 import type { CreatePostDto } from './dto/create-post.dto';
+import { CreatePostValidationPipe } from './pipes';
 import {
   LinkPostRdo,
   QuotePostRdo,
@@ -41,6 +42,7 @@ import { PostService } from './post.service';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @Post('/')
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'The new post has been successfully created.',
@@ -54,8 +56,9 @@ export class PostController {
       ],
     },
   })
-  @Post('/')
-  public async create(@Body() dto: CreatePostDto) {
+  public async create(
+    @Body(new CreatePostValidationPipe()) dto: CreatePostDto,
+  ) {
     try {
       const post = await this.postService.create(dto, 'test-author-id');
       return fillRdo(PostRdo, post.convertToObject());
@@ -64,6 +67,7 @@ export class PostController {
     }
   }
 
+  @Get('/')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Post list',
@@ -80,7 +84,6 @@ export class PostController {
       },
     },
   })
-  @Get('/')
   public async getAll() {
     const posts = await this.postService.getAll();
     return fillRdo(
@@ -89,6 +92,7 @@ export class PostController {
     );
   }
 
+  @Get('/:id')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Post found',
@@ -102,7 +106,6 @@ export class PostController {
       ],
     },
   })
-  @Get('/:id')
   public async getById(@Param('id') id: string) {
     try {
       const post = await this.postService.getById(id);
