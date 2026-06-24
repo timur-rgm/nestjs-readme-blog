@@ -1,7 +1,7 @@
 import type { Entity } from '@project/core';
 import { PostType, type PostBase, type Post } from '@project/types';
 
-export class PostEntity implements PostBase, Entity<string> {
+export class PostEntity implements PostBase, Entity<string, Post> {
   public id?: string;
   public type!: PostType;
   public tags?: string[];
@@ -21,7 +21,7 @@ export class PostEntity implements PostBase, Entity<string> {
     this.fillFromObject(post);
   }
 
-  public convertToObject() {
+  public convertToObject(): Post {
     const basePost = {
       id: this.id,
       type: this.type,
