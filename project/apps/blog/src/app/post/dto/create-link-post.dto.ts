@@ -1,17 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  ArrayMaxSize,
-  IsArray,
   IsEnum,
+  IsNotEmpty,
   IsOptional,
   IsString,
-  IsUrl, Matches,
-  MaxLength, MinLength
+  IsUrl,
+  MaxLength,
 } from 'class-validator';
 
 import { PostType } from '@project/types';
+import { CreateBasePostDto } from './create-base-post.dto';
 
-export class CreateLinkPostDto {
+export class CreateLinkPostDto extends CreateBasePostDto {
   @IsEnum(PostType)
   @ApiProperty({
     description: 'Post type',
@@ -19,21 +19,6 @@ export class CreateLinkPostDto {
     enum: PostType,
   })
   public type!: PostType.Link;
-
-  @IsOptional()
-  @IsArray()
-  @ArrayMaxSize(8)
-  @IsString({ each: true })
-  @MinLength(3, { each: true })
-  @MaxLength(10, { each: true })
-  @Matches(/^\p{L}/u, { each: true })
-  @ApiProperty({
-    description: 'Post tags',
-    example: ['nestjs', 'blog'],
-    required: false,
-    isArray: true,
-  })
-  public tags?: string[];
 
   @IsUrl()
   @ApiProperty({
@@ -44,10 +29,12 @@ export class CreateLinkPostDto {
 
   @IsOptional()
   @IsString()
+  @IsNotEmpty()
   @MaxLength(300)
   @ApiProperty({
     description: 'Link description',
     example: 'Short description',
+    required: false,
   })
   public description?: string;
 }

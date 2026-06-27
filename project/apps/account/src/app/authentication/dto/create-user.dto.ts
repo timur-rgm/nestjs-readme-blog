@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 import { AUTH_USER_EMAIL_NOT_VALID } from '../authentication.constant';
 
@@ -29,11 +36,13 @@ export class CreateUserDto {
   })
   public password!: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'User avatar path',
     example: '/images/user.png',
+    required: false,
   })
   public avatarUrl?: string;
 }
