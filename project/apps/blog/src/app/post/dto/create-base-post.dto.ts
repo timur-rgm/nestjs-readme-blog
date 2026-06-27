@@ -10,6 +10,8 @@ import {
   NotContains,
 } from 'class-validator';
 
+import { STARTS_WITH_LETTER_REGEXP } from '../post.constant';
+
 export class CreateBasePostDto {
   @IsOptional()
   @IsArray()
@@ -17,7 +19,7 @@ export class CreateBasePostDto {
   @IsString({ each: true })
   @MinLength(3, { each: true })
   @MaxLength(10, { each: true })
-  @Matches(/^\p{L}/u, { each: true })
+  @Matches(STARTS_WITH_LETTER_REGEXP, { each: true })
   @NotContains(' ', { each: true })
   @ApiProperty({
     description: 'Post tags',
