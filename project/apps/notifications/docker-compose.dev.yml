@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  readme.notifications.fakesmtp:
+    image: gessnerfl/fake-smtp-server:2.2.0
+    container_name: "readme.notifications.fakesmtp"
+    ports:
+      - "8025:8025"
+      - "1083:8080"
