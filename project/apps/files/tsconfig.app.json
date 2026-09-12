@@ -22,6 +22,9 @@
       "path": "../../libs/shared/core/tsconfig.lib.json"
     },
     {
+      "path": "../../libs/shared/config/mongo/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/shared/config/files/tsconfig.lib.json"
     }
   ]

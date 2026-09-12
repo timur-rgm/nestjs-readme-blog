@@ -3,7 +3,7 @@ import * as Joi from 'joi';
 
 const DEFAULT_MONGO_PORT = 27017;
 
-export interface MongoConfig {
+interface MongoConfig {
   host: string;
   name: string;
   port: number;
@@ -27,7 +27,7 @@ const validateConfig = (config: unknown): MongoConfig => {
   });
 
   if (error) {
-    throw new Error(`[Files Mongo Config Validation Error]: ${error.message}`);
+    throw new Error(`[Mongo Config Validation Error]: ${error.message}`);
   }
 
   return value;

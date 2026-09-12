@@ -1,9 +1,10 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 
+import { mongoConfig } from '@project/config-mongo';
+
 import applicationConfig from './application.config';
 import jwtConfig from './jwt.config';
-import mongoConfig from './mongo.config';
 
 const ENV_FILE_PATH = 'apps/account/account.env';
 

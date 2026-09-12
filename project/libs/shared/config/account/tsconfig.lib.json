@@ -19,7 +19,7 @@
   "include": ["src/**/*.ts"],
   "references": [
     {
-      "path": "../../helpers/tsconfig.lib.json"
+      "path": "../mongo/tsconfig.lib.json"
     }
   ]
 }

@@ -35,6 +35,12 @@
     },
     {
       "path": "./libs/shared/config/files"
+    },
+    {
+      "path": "./libs/shared/config/notifications"
+    },
+    {
+      "path": "./libs/shared/config/mongo"
     }
   ]
 }

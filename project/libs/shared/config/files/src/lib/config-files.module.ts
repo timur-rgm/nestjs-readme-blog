@@ -1,8 +1,9 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 
+import { mongoConfig } from '@project/config-mongo';
+
 import filesConfig from './files.config';
-import mongoConfig from './mongo.config';
 
 const ENV_FILE_PATH = 'apps/files/files.env';
 
