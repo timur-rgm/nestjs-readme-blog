@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 
+import { ConfigNotificationsModule } from '@project/config-notifications';
+
 @Module({
-  imports: [],
+  imports: [ConfigNotificationsModule],
   controllers: [],
   providers: [],
 })
