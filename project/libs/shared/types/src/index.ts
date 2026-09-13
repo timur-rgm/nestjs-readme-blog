@@ -14,6 +14,7 @@ export type {
 export type { PaginationResult } from './lib/pagination.interface';
 export { PostSortBy } from './lib/post-sort-by.enum';
 export { PostType } from './lib/post-type.enum';
+export { RabbitRoutingKey } from './lib/rabbit-routing-key.constant';
 export { SortDirection } from './lib/sort-direction.enum';
 export type { StoredFile } from './lib/stored-file.interface';
 export type { Subscriber } from './lib/subscriber.interface';
