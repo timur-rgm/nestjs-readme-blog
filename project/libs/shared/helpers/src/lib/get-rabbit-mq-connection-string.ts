@@ -5,7 +5,7 @@ type GetRabbitMQConnectionStringParams = {
   port: number;
 };
 
-export function getRabbitMQConnectionString({
+export function getRabbitMqConnectionString({
   user,
   password,
   host,

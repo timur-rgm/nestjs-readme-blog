@@ -1,9 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { EventPattern, Payload } from '@nestjs/microservices';
+import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
+
+import { RabbitRoutingKey } from '@project/types';
 
 import { CreateEmailSubscriberDto } from './dto/create-subscriber.dto';
 import { EmailSubscriberService } from './email-subscriber.service';
-import { RabbitRoutingKey } from '@project/types';
 
 @Controller()
 export class EmailSubscriberController {
@@ -14,7 +15,9 @@ export class EmailSubscriberController {
   @EventPattern(RabbitRoutingKey.UserRegistered)
   public async addSubscriber(
     @Payload() dto: CreateEmailSubscriberDto,
+    @Ctx() context: RmqContext,
   ): Promise<void> {
     await this.emailSubscriberService.addSubscriber(dto);
+    context.getChannelRef().ack(context.getMessage())
   }
 }
