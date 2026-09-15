@@ -17,5 +17,9 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../mongo/tsconfig.lib.json"
+    }
+  ]
 }
