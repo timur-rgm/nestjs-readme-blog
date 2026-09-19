@@ -8,7 +8,6 @@ export interface RabbitConfig {
   password: string;
   user: string;
   queue: string;
-  exchange: string;
   port: number;
 }
 
@@ -18,7 +17,6 @@ const validationSchema: Joi.ObjectSchema<RabbitConfig> = Joi.object({
   port: Joi.number().port().default(DEFAULT_RABBIT_PORT),
   user: Joi.string().required(),
   queue: Joi.string().required(),
-  exchange: Joi.string().required(),
 });
 
 const validateConfig = (config: unknown): RabbitConfig => {
@@ -28,7 +26,7 @@ const validateConfig = (config: unknown): RabbitConfig => {
 
   if (error) {
     throw new Error(
-      `[Notifications Rabbit Config Validation Error]: ${error.message}`,
+      `[Rabbit Config Validation Error]: ${error.message}`,
     );
   }
 
@@ -42,7 +40,6 @@ const getConfig = (): RabbitConfig =>
     port: process.env.RABBIT_PORT,
     user: process.env.RABBIT_USER,
     queue: process.env.RABBIT_QUEUE,
-    exchange: process.env.RABBIT_EXCHANGE,
   });
 
 export default registerAs('rabbit', getConfig);

@@ -9,7 +9,7 @@ import { NestFactory } from '@nestjs/core';
 import { type RmqOptions, Transport } from '@nestjs/microservices';
 
 import { getRabbitMqConnectionString } from '@project/helpers';
-import type { RabbitConfig } from '@project/config-notifications';
+import type { RabbitConfig } from '@project/config-rabbit';
 
 import { AppModule } from './app/app.module';
 

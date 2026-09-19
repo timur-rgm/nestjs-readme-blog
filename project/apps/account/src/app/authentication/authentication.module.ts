@@ -8,6 +8,7 @@ import { getJwtOptions } from '@project/config-account';
 import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';
 import { JwtAccessStrategy, JwtRefreshStrategy } from './strategies';
+import { NotificationsClientModule } from '../notifications-client/notifications-client.module';
 import { UserModel, UserSchema } from './user.model';
 import { UserRepository } from './user.repository';
 
@@ -18,6 +19,7 @@ import { UserRepository } from './user.repository';
       useFactory: getJwtOptions,
     }),
     MongooseModule.forFeature([{ name: UserModel.name, schema: UserSchema }]),
+    NotificationsClientModule,
   ],
   controllers: [AuthenticationController],
   providers: [

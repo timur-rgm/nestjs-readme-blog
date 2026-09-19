@@ -12,6 +12,9 @@
   "include": ["src/**/*.ts"],
   "references": [
     {
+      "path": "../../libs/shared/config/rabbit/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/shared/types/tsconfig.lib.json"
     },
     {

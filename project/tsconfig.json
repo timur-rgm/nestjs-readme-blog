@@ -41,6 +41,9 @@
     },
     {
       "path": "./libs/shared/config/mongo"
+    },
+    {
+      "path": "./libs/shared/config/rabbit"
     }
   ]
 }

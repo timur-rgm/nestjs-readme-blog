@@ -23,6 +23,7 @@ import type { TokenPayload } from '@project/types';
 import { AuthenticationService } from './authentication.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { JwtAccessGuard, JwtRefreshGuard } from './guards';
+import { NotificationsClientService } from '../notifications-client/notifications-client.service';
 import {
   RefreshTokenInvalidError,
   TokenGenerationError,
@@ -35,7 +36,10 @@ import { TokenPairRdo, UserRdo } from './rdo';
 @ApiTags('authentication')
 @Controller('auth')
 export class AuthenticationController {
-  constructor(private readonly authorizationService: AuthenticationService) {}
+  constructor(
+    private readonly authorizationService: AuthenticationService,
+    private readonly notificationsClientService: NotificationsClientService,
+  ) {}
 
   @Post('register')
   @ApiResponse({
@@ -50,6 +54,10 @@ export class AuthenticationController {
   public async register(@Body() dto: CreateUserDto): Promise<UserRdo> {
     try {
       const userEntity = await this.authorizationService.register(dto);
+      this.notificationsClientService.emitUserRegistered({
+        email: userEntity.email,
+        name: userEntity.name,
+      });
       return fillRdo(UserRdo, userEntity.convertToObject());
     } catch (error) {
       this.mapAuthErrorToHttp(error);

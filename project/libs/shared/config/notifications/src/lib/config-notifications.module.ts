@@ -2,9 +2,9 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 
 import { mongoConfig } from '@project/config-mongo';
+import { rabbitConfig } from '@project/config-rabbit';
 
 import applicationConfig from './application.config';
-import rabbitConfig from './rabbit.config';
 
 const ENV_FILE_PATH = 'apps/notifications/notifications.env';
 
