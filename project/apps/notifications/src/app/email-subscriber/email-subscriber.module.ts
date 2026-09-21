@@ -8,10 +8,12 @@ import {
 } from './email-subscriber.model';
 import { EmailSubscriberService } from './email-subscriber.service';
 import { EmailSubscriberRepository } from './email-subscriber.repository';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   controllers: [EmailSubscriberController],
   imports: [
+    MailModule,
     MongooseModule.forFeature([
       {
         name: EmailSubscriberModel.name,

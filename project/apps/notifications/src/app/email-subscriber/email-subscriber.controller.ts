@@ -5,11 +5,13 @@ import { RabbitRoutingKey } from '@project/types';
 
 import { CreateEmailSubscriberDto } from './dto/create-email-subscriber.dto';
 import { EmailSubscriberService } from './email-subscriber.service';
+import { MailService } from '../mail/mail.service';
 
 @Controller()
 export class EmailSubscriberController {
   constructor(
     private readonly emailSubscriberService: EmailSubscriberService,
+    private readonly mailService: MailService,
   ) {}
 
   @EventPattern(RabbitRoutingKey.UserRegistered)
@@ -17,7 +19,9 @@ export class EmailSubscriberController {
     @Payload() dto: CreateEmailSubscriberDto,
     @Ctx() context: RmqContext,
   ): Promise<void> {
-    await this.emailSubscriberService.addSubscriber(dto);
-    context.getChannelRef().ack(context.getMessage())
+    const emailSubscriberEntity =
+      await this.emailSubscriberService.addSubscriber(dto);
+    await this.mailService.sendSubscriptionConfirmation(emailSubscriberEntity);
+    context.getChannelRef().ack(context.getMessage());
   }
 }
