@@ -5,6 +5,7 @@ import { mongoConfig } from '@project/config-mongo';
 import { rabbitConfig } from '@project/config-rabbit';
 
 import applicationConfig from './application.config';
+import mailConfig from './mail.config';
 
 const ENV_FILE_PATH = 'apps/notifications/notifications.env';
 
@@ -13,7 +14,7 @@ const ENV_FILE_PATH = 'apps/notifications/notifications.env';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [applicationConfig, mongoConfig, rabbitConfig],
+      load: [applicationConfig, mailConfig, mongoConfig, rabbitConfig],
       envFilePath: ENV_FILE_PATH,
     }),
   ],
