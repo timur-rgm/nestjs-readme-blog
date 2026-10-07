@@ -44,6 +44,9 @@
     },
     {
       "path": "./libs/shared/config/rabbit"
+    },
+    {
+      "path": "./libs/shared/config/blog"
     }
   ]
 }
