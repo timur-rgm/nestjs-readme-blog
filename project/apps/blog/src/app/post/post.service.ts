@@ -39,6 +39,10 @@ export class PostService {
     return post;
   }
 
+  public async getCreatedAfter(date: Date): Promise<PostEntity[]> {
+    return this.postRepository.findCreatedAfter(date);
+  }
+
   public async ensureExists(id: string): Promise<void> {
     await this.getById(id);
   }

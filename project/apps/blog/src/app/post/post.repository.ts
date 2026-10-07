@@ -111,6 +111,21 @@ export class PostRepository implements Repository<PostEntity> {
     return this.mapPostRowToPostEntity(existingPostRow);
   }
 
+  public async findCreatedAfter(date: Date): Promise<PostEntity[]> {
+    const postRows = await this.prismaClientService.post.findMany({
+      where: {
+        createdAt: {
+          gt: date,
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+
+    return postRows.map((postRow) => this.mapPostRowToPostEntity(postRow));
+  }
+
   public async update(id: EntityId, entity: PostEntity): Promise<PostEntity> {
     const postData = entity.convertToObject();
     const updatedPostRow = await this.prismaClientService.post.update({
