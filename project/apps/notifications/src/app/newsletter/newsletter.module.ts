@@ -1,13 +1,16 @@
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import type { BlogClientConfig } from '@project/config-notifications';
 import { getRabbitMqConnectionString } from '@project/helpers';
 import type { RabbitConfig } from '@project/config-rabbit';
 
 import { BLOG_CLIENT } from './newsletter.constant';
+import { MailingStateModel, MailingStateSchema } from './mailing-state.model';
 import { NewsletterController } from './newsletter.controller';
+import { NewsletterRepository } from './newsletter.repository';
 import { NewsletterService } from './newsletter.service';
 
 @Module({
@@ -32,8 +35,14 @@ import { NewsletterService } from './newsletter.service';
         },
       },
     ]),
+    MongooseModule.forFeature([
+      {
+        name: MailingStateModel.name,
+        schema: MailingStateSchema,
+      },
+    ]),
   ],
   controllers: [NewsletterController],
-  providers: [NewsletterService],
+  providers: [NewsletterRepository, NewsletterService],
 })
 export class NewsletterModule {}
