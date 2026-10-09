@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { Module } from '@nestjs/common';
 import { resolve } from 'node:path';
 
 import { getMailerAsyncOptions } from '@project/config-notifications';
