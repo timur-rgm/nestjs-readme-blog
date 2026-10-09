@@ -1,9 +1,6 @@
 import { Entity } from '@project/core';
 
-export type MailingState = {
-  id?: string;
-  lastMailingAt: Date;
-};
+import type { MailingState } from './mailing-state.interface';
 
 export class MailingStateEntity
   implements MailingState, Entity<string, MailingState>

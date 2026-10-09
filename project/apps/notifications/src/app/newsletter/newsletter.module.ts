@@ -9,6 +9,7 @@ import type { RabbitConfig } from '@project/config-rabbit';
 
 import { BLOG_CLIENT } from './newsletter.constant';
 import { EmailSubscriberModule } from '../email-subscriber/email-subscriber.module';
+import { MailModule } from '../mail/mail.module';
 import { MailingStateModel, MailingStateSchema } from './mailing-state.model';
 import { NewsletterController } from './newsletter.controller';
 import { NewsletterRepository } from './newsletter.repository';
@@ -37,6 +38,7 @@ import { NewsletterService } from './newsletter.service';
       },
     ]),
     EmailSubscriberModule,
+    MailModule,
     MongooseModule.forFeature([
       {
         name: MailingStateModel.name,

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-import type { MailingState } from './mailing-state.entity';
+import type { MailingState } from './mailing-state.interface';
 
 @Schema({
   collection: 'mailing-state',
