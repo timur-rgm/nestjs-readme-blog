@@ -23,4 +23,8 @@ export class EmailSubscriberService {
     const emailSubscriberEntity = new EmailSubscriberEntity(dto);
     return this.emailSubscriberRepository.save(emailSubscriberEntity);
   }
+
+  public async getAllSubscribers(): Promise<EmailSubscriberEntity[]> {
+    return this.emailSubscriberRepository.findAll();
+  }
 }
