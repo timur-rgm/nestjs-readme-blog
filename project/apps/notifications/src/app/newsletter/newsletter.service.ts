@@ -36,6 +36,8 @@ export class NewsletterService {
         postSummaries,
       );
     }
+
+    await this.newsletterRepository.updateLastMailingAt(new Date());
   }
 
   private async getPostsCreatedAfter(date: Date): Promise<Post[]> {
@@ -70,8 +72,9 @@ export class NewsletterService {
         }
       }
 
-      const createdAt =
-        post.createdAt?.toLocaleDateString('ru-RU') ?? 'Дата неизвестна';
+      const createdAt = post.createdAt
+        ? new Date(String(post.createdAt)).toLocaleDateString('ru-RU')
+        : 'Дата неизвестна';
 
       return { summary, createdAt };
     });

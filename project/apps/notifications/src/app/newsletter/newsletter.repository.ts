@@ -23,4 +23,10 @@ export class NewsletterRepository extends BaseMongoRepository<
     const mailingStateDocument = await this.model.findOne().exec();
     return mailingStateDocument?.lastMailingAt ?? null;
   }
+
+  public async updateLastMailingAt(date: Date): Promise<void> {
+    await this.model
+      .findOneAndUpdate({}, { $set: { lastMailingAt: date } }, { upsert: true })
+      .exec();
+  }
 }
