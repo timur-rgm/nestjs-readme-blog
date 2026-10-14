@@ -40,7 +40,10 @@ export class NewsletterService {
 
   private async getPostsCreatedAfter(date: Date): Promise<Post[]> {
     return lastValueFrom(
-      this.rabbitClient.send(RabbitRoutingKey.GetPostsCreatedAfter, date),
+      this.rabbitClient.send(
+        RabbitRoutingKey.GetPostsCreatedAfter,
+        date.toISOString(),
+      ),
     );
   }
 

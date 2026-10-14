@@ -12,8 +12,8 @@ export class PostMessageController {
   constructor(private readonly postService: PostService) {}
 
   @MessagePattern(RabbitRoutingKey.GetPostsCreatedAfter)
-  public async getCreatedAfter(date: Date): Promise<PostRdo[]> {
-    const postEntities = await this.postService.getCreatedAfter(date);
+  public async getCreatedAfter(date: string): Promise<PostRdo[]> {
+    const postEntities = await this.postService.getCreatedAfter(new Date(date));
     return fillRdo(
       PostRdo,
       postEntities.map((postEntity) => postEntity.convertToObject()),
